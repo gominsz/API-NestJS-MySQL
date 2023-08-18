@@ -5,7 +5,7 @@ GET http://localhost:3000
 GET http://localhost:3000/categories
 
 ###
-GET http://localhost:3000/categories/1
+GET http://localhost:3000/categories/3
 
 
 ###
@@ -14,7 +14,7 @@ Content-Type: application/json
 
     {
         "name": "Category supertest",
-        "description": "Category supertest"
+        "descripiton": "Category supertest"
     }
 
 ###
@@ -22,10 +22,10 @@ PATCH http://localhost:3000/categories/1
 Content-Type: application/json
 
     {
-        "name": "Category supertest",
-        "description": "Category supertest"
+        "name": "Documentario Upgrade",
+        "descripiton": "xpto"
     }
 
 
 ###
-DELETE http://localhost:3000/categories/1
+DELETE http://localhost:3000/categories/5
