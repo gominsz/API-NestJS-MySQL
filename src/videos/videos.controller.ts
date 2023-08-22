@@ -1,10 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpCode, UploadedFile, ParseFilePipe, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, ParseFilePipe, UseInterceptors, Res, HttpCode, } from '@nestjs/common';
 import { VideosService } from './videos.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
-import { Video } from './entities/video.entity';
 import { VideoFileValidator } from './video-file-validator';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
+import { createReadStream } from 'fs';
+import { join } from 'path';
+
 
 @Controller('videos')
 export class VideosController {
@@ -13,21 +16,24 @@ export class VideosController {
   @UseInterceptors(FileInterceptor('file'))
   @Post()
   create(
-    @Body() createVideoDto: CreateVideoDto, 
-    @UploadedFile(new ParseFilePipe({
-      validators: [
-        new VideoFileValidator({
-          maxSize: 1024 * 1024 * 100,
-          mineType: 'video/mp4'
-        }),
-      ],
-      errorHttpStatusCode: 422,
-    }),
-    ) 
-    file: Express.Multer.File
-    ) {
-      console.log(file);
-      return this.videosService.create(createVideoDto);
+    @Body() createVideoDto: CreateVideoDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new VideoFileValidator({
+            maxSize: 1024 * 1024 * 100,
+            mimetype: 'video/mp4',
+          }),
+        ],
+        errorHttpStatusCode: 422,
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    return this.videosService.create({
+      ...createVideoDto,
+      file,
+    });
   }
 
   @Get()
@@ -51,5 +57,11 @@ export class VideosController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.videosService.remove(+id);
+  }
+
+  @Get('file/:file')
+  file(@Param('file') file: string, @Res() res: Response) {
+    const fileStream = createReadStream(join(process.cwd(), 'upload', file));
+    fileStream.pipe(res);
   }
 }
