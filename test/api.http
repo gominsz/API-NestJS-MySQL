@@ -21,7 +21,7 @@ PATCH http://localhost:3000/categories/1
 Content-Type: application/json
 
 {
-    "description": "1"
+    "descripiton": "1"
 }
 
 ###
@@ -38,7 +38,7 @@ Content-Type: application/json
 {
     "title": "video test",
     "description": "video test",
-    "category_id": 10
+    "category_id": 4
 }
 
 ###
@@ -61,9 +61,9 @@ Content-Disposition: form-data; name="category_id"
 Content-Disposition: form-data; name="file"; filename="video.mp4"
 Content-Type: video/mp4
 
-< ./Video.mp4
+< ./video.mp4
 ------WebKitFormBoundary1234--
 
 
 ###
-GET http://localhost:3000/videos/file/1692113031812.6626.mp4
+GET http://localhost:3000/videos/file/1692725035396.1057.mp4
