@@ -23,13 +23,16 @@ export class CategoriesController {
     return this.categoriesService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch(':id') 
+  //PUT-    Atualizar o recurso por COMPLETO - Sendo OBRIGADO a passar TODOS OS DADOS 
+  //PATCH - Atualização parcial, podendo passar TODOS ou apenas UM grupo de dados
   update(
     @Param('id') id: string, 
     @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoriesService.update(+id, updateCategoryDto);
   }
 
+  
   @HttpCode(204) // representa No content (Sem conteudo)
   @Delete(':id')
   remove(@Param('id') id: string) {
