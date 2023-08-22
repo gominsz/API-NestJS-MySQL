@@ -2,9 +2,9 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit{
-  async  onModuleInit() {
+export class PrismaService extends PrismaClient implements OnModuleInit {
+  async onModuleInit() {
     //conectando ao banco de dados
-        await this.$connect();
-    }
+    await this.$connect();
+  };
 }
