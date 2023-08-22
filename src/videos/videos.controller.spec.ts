@@ -11,7 +11,7 @@ describe('VideosController', () => {
       controllers: [VideosController],
       providers: [
         VideosService,
-        PrismaService
+        PrismaService,
       ],
     }).compile();
 
@@ -22,3 +22,4 @@ describe('VideosController', () => {
     expect(controller).toBeDefined();
   });
 });
+
